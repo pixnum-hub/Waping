@@ -171,9 +171,260 @@
       <label for="tpl">Message template</label>
       <select id="tpl">
         <option value="">Custom / blank</option>
-        <option value="support">Support enquiry</option>
-        <option value="sales">Sales enquiry</option>
-        <option value="booking">Booking request</option>
+        <optgroup label="Sales & Orders">
+          <option value="sales">Sales enquiry</option>
+          <option value="quote">Request a quote</option>
+          <option value="quoteFollowup">Follow up on quote</option>
+          <option value="orderConfirm">Order confirmation</option>
+          <option value="shipping">Shipping update</option>
+          <option value="delivery">Delivery inquiry</option>
+          <option value="discount">Ask for a discount</option>
+          <option value="wholesale">Wholesale inquiry</option>
+          <option value="availability">Check availability</option>
+        </optgroup>
+        <optgroup label="Support & Billing">
+          <option value="support">Support enquiry</option>
+          <option value="payment">Payment reminder</option>
+          <option value="invoice">Invoice request</option>
+          <option value="refund">Refund request</option>
+          <option value="return">Return an item</option>
+          <option value="warranty">Warranty claim</option>
+          <option value="complaint">File a complaint</option>
+          <option value="urgent">Urgent request</option>
+        </optgroup>
+        <optgroup label="Appointments & Bookings">
+          <option value="booking">Booking request</option>
+          <option value="reschedule">Reschedule appointment</option>
+          <option value="cancel">Cancel appointment</option>
+          <option value="reminder">Appointment reminder</option>
+          <option value="consultation">Book a consultation</option>
+        </optgroup>
+        <optgroup label="HR & Business">
+          <option value="jobApply">Job application</option>
+          <option value="interview">Interview scheduling</option>
+          <option value="hr">HR query</option>
+          <option value="partnership">Partnership proposal</option>
+          <option value="collab">Collaboration request</option>
+          <option value="sponsorship">Sponsorship inquiry</option>
+        </optgroup>
+        <optgroup label="Events">
+          <option value="rsvp">Event RSVP</option>
+          <option value="eventInvite">Event invitation</option>
+          <option value="webinar">Webinar registration</option>
+          <option value="catering">Catering inquiry</option>
+        </optgroup>
+        <optgroup label="Real Estate & Rentals">
+          <option value="realEstate">Property inquiry</option>
+          <option value="viewing">Schedule a viewing</option>
+          <option value="rental">Rental inquiry</option>
+        </optgroup>
+        <optgroup label="Food & Hospitality">
+          <option value="restaurant">Table reservation</option>
+          <option value="menu">Ask for the menu</option>
+        </optgroup>
+        <optgroup label="Health & Education">
+          <option value="medical">Medical appointment</option>
+          <option value="prescription">Prescription refill</option>
+          <option value="education">Course inquiry</option>
+          <option value="enrollment">Enrollment / admission</option>
+          <option value="tutoring">Tutoring request</option>
+        </optgroup>
+        <optgroup label="Marketing & Growth">
+          <option value="subscription">Subscription query</option>
+          <option value="renewal">Renewal reminder</option>
+          <option value="loyalty">Loyalty program</option>
+          <option value="referral">Referral request</option>
+          <option value="waitlist">Join waitlist</option>
+          <option value="subscriptionInvite">Invitation to subscribe</option>
+        </optgroup>
+        <optgroup label="General">
+          <option value="feedback">Feedback request</option>
+          <option value="testimonial">Testimonial request</option>
+          <option value="thankyou">Thank you note</option>
+          <option value="apology">Apology message</option>
+          <option value="greeting">General greeting</option>
+        </optgroup>
+        <optgroup label="Travel & Hospitality">
+          <option value="flightBooking">Flight booking</option>
+          <option value="hotelBooking">Hotel booking</option>
+          <option value="travelQuote">Travel package quote</option>
+          <option value="visaAssist">Visa assistance</option>
+          <option value="checkIn">Check-in question</option>
+          <option value="checkOut">Check-out confirmation</option>
+          <option value="itinerary">Trip itinerary</option>
+          <option value="travelInsurance">Travel insurance</option>
+          <option value="groupTravel">Group travel rates</option>
+          <option value="airportTransfer">Airport transfer</option>
+        </optgroup>
+        <optgroup label="Automotive">
+          <option value="carService">Car service booking</option>
+          <option value="testDrive">Schedule test drive</option>
+          <option value="carQuote">Vehicle quote</option>
+          <option value="partsInquiry">Parts availability</option>
+          <option value="insuranceClaim">Insurance claim</option>
+          <option value="towRequest">Tow request</option>
+          <option value="carRental">Car rental inquiry</option>
+          <option value="tradeIn">Trade-in inquiry</option>
+          <option value="carWash">Car wash / detailing</option>
+          <option value="mot">MOT / inspection</option>
+        </optgroup>
+        <optgroup label="Legal & Finance">
+          <option value="legalConsult">Legal consultation</option>
+          <option value="contractReview">Contract review</option>
+          <option value="taxHelp">Tax filing help</option>
+          <option value="loanInquiry">Loan inquiry</option>
+          <option value="insuranceQuote">Insurance quote</option>
+          <option value="financialAdvice">Financial planning</option>
+          <option value="accountOpen">Open new account</option>
+          <option value="documentRequest">Document checklist</option>
+          <option value="notary">Notary request</option>
+          <option value="disputeResolution">Dispute resolution</option>
+        </optgroup>
+        <optgroup label="Freelance & Creative">
+          <option value="projectInquiry">Project inquiry</option>
+          <option value="portfolioRequest">Portfolio request</option>
+          <option value="rateInquiry">Rate inquiry</option>
+          <option value="deadlineCheck">Timeline check-in</option>
+          <option value="revisionRequest">Revision request</option>
+          <option value="contractSend">Send contract</option>
+          <option value="briefShare">Share project brief</option>
+          <option value="designFeedback">Design feedback</option>
+          <option value="invoiceFreelance">Freelance invoice</option>
+          <option value="availabilityCheck">Availability check</option>
+        </optgroup>
+        <optgroup label="E-commerce">
+          <option value="productQuestion">Product question</option>
+          <option value="sizeGuide">Sizing help</option>
+          <option value="trackOrder">Track my order</option>
+          <option value="exchangeItem">Exchange an item</option>
+          <option value="giftWrap">Gift wrapping</option>
+          <option value="couponCode">Coupon code</option>
+          <option value="preOrder">Pre-order item</option>
+          <option value="restockAlert">Restock alert</option>
+          <option value="bulkOrder">Bulk order</option>
+          <option value="giftCard">Purchase gift card</option>
+        </optgroup>
+        <optgroup label="Nonprofit & Community">
+          <option value="donationInquiry">Donation inquiry</option>
+          <option value="volunteerSignup">Volunteer sign-up</option>
+          <option value="fundraiser">Fundraiser details</option>
+          <option value="membershipJoin">Join as member</option>
+          <option value="eventSupport">Support an event</option>
+          <option value="grantInquiry">Grant inquiry</option>
+          <option value="partnershipNGO">NGO partnership</option>
+          <option value="donationReceipt">Donation receipt</option>
+          <option value="communityFeedback">Community feedback</option>
+          <option value="outreachInquiry">Outreach programs</option>
+        </optgroup>
+        <optgroup label="Personal & Family">
+          <option value="checkingIn">Checking in</option>
+          <option value="planMeetup">Plan a meetup</option>
+          <option value="familyUpdate">Family update</option>
+          <option value="birthdayWish">Birthday wish</option>
+          <option value="congratulations">Congratulations</option>
+          <option value="getWellSoon">Get well soon</option>
+          <option value="invitationPersonal">Personal invitation</option>
+          <option value="thinkingOfYou">Thinking of you</option>
+          <option value="catchUp">Let's catch up</option>
+          <option value="travelPlans">Finalize travel plans</option>
+        </optgroup>
+        <optgroup label="Technology & IT">
+          <option value="techSupport">Technical support</option>
+          <option value="bugReport">Report a bug</option>
+          <option value="featureRequest">Feature request</option>
+          <option value="accountAccess">Account access issue</option>
+          <option value="softwareDemo">Product demo</option>
+          <option value="integrationHelp">Integration help</option>
+          <option value="apiQuestion">API question</option>
+          <option value="upgradeInquiry">Plan upgrade</option>
+          <option value="dataExport">Data export help</option>
+          <option value="securityConcern">Security concern</option>
+          <option value="softwareLaunch">New software launch</option>
+        </optgroup>
+        <optgroup label="Fitness & Wellness">
+          <option value="trialClass">Book a trial class</option>
+          <option value="membershipInquiry">Membership plans</option>
+          <option value="personalTraining">Personal training</option>
+          <option value="classSchedule">Class schedule</option>
+          <option value="nutritionPlan">Nutrition plan</option>
+          <option value="spaBooking">Spa booking</option>
+          <option value="massageBooking">Massage booking</option>
+          <option value="yogaClass">Yoga class timing</option>
+          <option value="wellnessCheck">Wellness check-in</option>
+          <option value="freezeMembership">Freeze membership</option>
+        </optgroup>
+        <optgroup label="Home Services">
+          <option value="plumbingRequest">Plumbing request</option>
+          <option value="electricalRequest">Electrical request</option>
+          <option value="cleaningService">Cleaning service</option>
+          <option value="pestControl">Pest control</option>
+          <option value="movingQuote">Moving quote</option>
+          <option value="landscaping">Landscaping inquiry</option>
+          <option value="homeRepair">Home repair</option>
+          <option value="applianceRepair">Appliance repair</option>
+          <option value="paintingQuote">Painting quote</option>
+          <option value="hvacService">HVAC servicing</option>
+        </optgroup>
+        <optgroup label="Photography & Events Services">
+          <option value="photographyBooking">Photography booking</option>
+          <option value="videographyBooking">Videography inquiry</option>
+          <option value="weddingPackage">Wedding packages</option>
+          <option value="eventPlanning">Event planning help</option>
+          <option value="djBooking">DJ booking</option>
+          <option value="venueInquiry">Venue availability</option>
+          <option value="decorInquiry">Event decor</option>
+          <option value="printOrder">Photo print order</option>
+          <option value="albumRequest">Photo album update</option>
+          <option value="eventTimeline">Finalize event timeline</option>
+        </optgroup>
+        <optgroup label="Pet Services">
+          <option value="vetAppointment">Vet appointment</option>
+          <option value="groomingBooking">Grooming appointment</option>
+          <option value="petBoarding">Pet boarding</option>
+          <option value="petSitting">Pet sitting</option>
+          <option value="petTraining">Pet training</option>
+          <option value="petAdoption">Pet adoption</option>
+          <option value="petSupplies">Pet supplies stock</option>
+          <option value="vaccinationReminder">Vaccination check</option>
+          <option value="petWalking">Dog walking</option>
+          <option value="petEmergency">Pet emergency</option>
+        </optgroup>
+        <optgroup label="Career & Learning">
+          <option value="careerCounseling">Career counseling</option>
+          <option value="resumeReview">Resume review</option>
+          <option value="scholarshipInquiry">Scholarship inquiry</option>
+          <option value="examPrep">Exam preparation</option>
+          <option value="languageClass">Language class</option>
+          <option value="onlineCourse">Online course info</option>
+          <option value="certificationInquiry">Certification programs</option>
+          <option value="studyAbroad">Study abroad guidance</option>
+          <option value="internshipInquiry">Internship inquiry</option>
+          <option value="mentorshipRequest">Mentorship request</option>
+        </optgroup>
+        <optgroup label="Construction & Contracting">
+          <option value="constructionQuote">Construction quote</option>
+          <option value="renovationInquiry">Renovation inquiry</option>
+          <option value="architectConsult">Architect consultation</option>
+          <option value="contractorQuote">Contractor quote</option>
+          <option value="permitHelp">Building permit help</option>
+          <option value="siteVisit">Schedule site visit</option>
+          <option value="materialsInquiry">Materials & pricing</option>
+          <option value="projectTimeline">Project timeline</option>
+          <option value="inspectionRequest">Site inspection</option>
+          <option value="safetyCompliance">Safety compliance</option>
+        </optgroup>
+        <optgroup label="More General">
+          <option value="generalInquiry">General inquiry</option>
+          <option value="pricingInfo">Pricing information</option>
+          <option value="locationHours">Location & hours</option>
+          <option value="newsletterSignup">Newsletter sign-up</option>
+          <option value="socialMediaQuery">Saw your post — question</option>
+          <option value="customRequest">Custom request</option>
+          <option value="urgentSupport">Urgent ongoing issue</option>
+          <option value="followUpGeneral">Follow-up on our chat</option>
+          <option value="introductionMessage">Introduce myself</option>
+          <option value="closingRemarks">Closing remarks</option>
+        </optgroup>
       </select>
     </div>
 
@@ -283,11 +534,212 @@
 
   function parseCC(v){ var m = (v||"").match(/^\+\d{1,4}/); return m ? m[0] : "+1"; }
 
-  // ---------- Message templates (feature 13) ----------
+  // ---------- Message templates (feature 13) — 53 total ----------
   var templates = {
     support: "Hi, I need help with a recent order or query.",
     sales: "Hi! I'm interested in your products or services. Could you share more details?",
-    booking: "Hi, I'd like to book an appointment. What slots are available?"
+    booking: "Hi, I'd like to book an appointment. What slots are available?",
+    quote: "Hi, could you send me a quote for your products/services? Thank you.",
+    quoteFollowup: "Hi, just following up on the quote you sent — any update?",
+    orderConfirm: "Hi, I'd like to confirm the details of my recent order.",
+    shipping: "Hi, could you share a shipping update on my order?",
+    delivery: "Hi, I have a question about delivery timing to my address.",
+    discount: "Hi, is there a discount available on this order?",
+    wholesale: "Hi, I'm interested in wholesale/bulk pricing. Could you share details?",
+    availability: "Hi, could you confirm if this is currently in stock/available?",
+    payment: "Hi, this is a reminder regarding a pending payment. Could you confirm?",
+    invoice: "Hi, could you please send me an invoice for my recent purchase?",
+    refund: "Hi, I'd like to request a refund for my recent order.",
+    return: "Hi, I'd like to return an item I recently purchased.",
+    warranty: "Hi, I'd like to file a warranty claim for a product I purchased.",
+    complaint: "Hi, I'd like to raise a complaint regarding my recent experience.",
+    urgent: "Hi, this is an urgent request — could you please respond as soon as possible?",
+    reschedule: "Hi, could we reschedule my appointment to a different time?",
+    cancel: "Hi, I'd like to cancel my upcoming appointment. Thank you.",
+    reminder: "Hi, just a reminder about our upcoming appointment.",
+    consultation: "Hi, I'd like to book a consultation. What times are available?",
+    jobApply: "Hi, I'm interested in applying for a position at your company.",
+    interview: "Hi, I'd like to schedule/confirm an interview time.",
+    hr: "Hi, I have a question for the HR team regarding my application.",
+    partnership: "Hi, I'd like to discuss a potential partnership opportunity.",
+    collab: "Hi, I'd love to explore a collaboration with you.",
+    sponsorship: "Hi, I'm reaching out regarding a sponsorship opportunity.",
+    rsvp: "Hi, I'd like to RSVP for the upcoming event.",
+    eventInvite: "Hi! You're invited to our upcoming event — let me know if you can join.",
+    webinar: "Hi, I'd like to register for the upcoming webinar.",
+    catering: "Hi, I'd like to inquire about catering for an upcoming event.",
+    realEstate: "Hi, I'm interested in a property you have listed. Could you share more details?",
+    viewing: "Hi, could we schedule a viewing for the property?",
+    rental: "Hi, I'd like to inquire about rental availability and terms.",
+    restaurant: "Hi, I'd like to reserve a table. Could you confirm availability?",
+    menu: "Hi, could you share your current menu, please?",
+    medical: "Hi, I'd like to book a medical appointment. What slots are available?",
+    prescription: "Hi, I'd like to request a prescription refill.",
+    education: "Hi, I'd like more information about your courses.",
+    enrollment: "Hi, I'd like to inquire about enrollment/admission details.",
+    tutoring: "Hi, I'm looking for tutoring — could you share your availability and rates?",
+    subscription: "Hi, I have a question about my subscription.",
+    renewal: "Hi, this is a reminder that your subscription/renewal is coming up.",
+    loyalty: "Hi, could you share details about your loyalty/rewards program?",
+    referral: "Hi, I'd like to refer someone — could you share how the referral program works?",
+    waitlist: "Hi, could you add me to the waitlist, please?",
+    feedback: "Hi, I'd love to share some feedback about my recent experience.",
+    testimonial: "Hi, would you be open to sharing a testimonial about our work together?",
+    thankyou: "Hi, just wanted to say thank you for your help!",
+    apology: "Hi, I wanted to apologize for the inconvenience and follow up.",
+    greeting: "Hi there! Hope you're doing well.",
+    flightBooking: "Hi, I'd like to book a flight. Could you share available options?",
+    hotelBooking: "Hi, I'd like to book a hotel room. Could you confirm availability and rates?",
+    travelQuote: "Hi, could you send me a quote for a travel package?",
+    visaAssist: "Hi, I need assistance with visa documentation for my trip.",
+    checkIn: "Hi, I have a question about check-in for my upcoming stay.",
+    checkOut: "Hi, I'd like to confirm my check-out time.",
+    itinerary: "Hi, could you share the itinerary for my upcoming trip?",
+    travelInsurance: "Hi, I'd like more information about travel insurance options.",
+    groupTravel: "Hi, I'm organizing a group trip — could you share group rates?",
+    airportTransfer: "Hi, I'd like to arrange an airport transfer. Could you confirm timing?",
+    carService: "Hi, I'd like to book my car in for a service.",
+    testDrive: "Hi, I'd like to schedule a test drive.",
+    carQuote: "Hi, could you send me a quote for this vehicle?",
+    partsInquiry: "Hi, do you have this part in stock?",
+    insuranceClaim: "Hi, I need to file an insurance claim for my vehicle.",
+    towRequest: "Hi, I need a tow — could you help?",
+    carRental: "Hi, I'd like to inquire about renting a car.",
+    tradeIn: "Hi, I'm interested in trading in my current vehicle.",
+    carWash: "Hi, could you confirm your car wash/detailing packages?",
+    mot: "Hi, I'd like to book an MOT/vehicle inspection.",
+    legalConsult: "Hi, I'd like to schedule a legal consultation.",
+    contractReview: "Hi, could you review a contract for me?",
+    taxHelp: "Hi, I need assistance with my tax filing.",
+    loanInquiry: "Hi, I'd like to inquire about loan options.",
+    insuranceQuote: "Hi, could you send me an insurance quote?",
+    financialAdvice: "Hi, I'd like to schedule a financial planning session.",
+    accountOpen: "Hi, I'd like to open a new account. What's the process?",
+    documentRequest: "Hi, could you send me the required documents list?",
+    notary: "Hi, I need a document notarized — are you available?",
+    disputeResolution: "Hi, I'd like to raise a dispute regarding a recent transaction.",
+    projectInquiry: "Hi, I have a project I'd like to discuss with you.",
+    portfolioRequest: "Hi, could you share your portfolio/recent work?",
+    rateInquiry: "Hi, could you share your rates for this type of work?",
+    deadlineCheck: "Hi, just checking in on the timeline for my project.",
+    revisionRequest: "Hi, I'd like to request a revision on the recent draft.",
+    contractSend: "Hi, could you send over the contract to get started?",
+    briefShare: "Hi, I'd like to share the project brief with you.",
+    designFeedback: "Hi, here's my feedback on the design — let's discuss.",
+    invoiceFreelance: "Hi, could you send your invoice for the completed work?",
+    availabilityCheck: "Hi, are you available to take on a new project?",
+    productQuestion: "Hi, I have a question about one of your products.",
+    sizeGuide: "Hi, could you help me with sizing for this item?",
+    trackOrder: "Hi, could you help me track my order?",
+    exchangeItem: "Hi, I'd like to exchange an item I purchased.",
+    giftWrap: "Hi, is gift wrapping available for my order?",
+    couponCode: "Hi, do you have any active coupon codes?",
+    preOrder: "Hi, I'd like to pre-order an upcoming product.",
+    restockAlert: "Hi, could you notify me when this is back in stock?",
+    bulkOrder: "Hi, I'd like to place a bulk order — could you assist?",
+    giftCard: "Hi, I'd like to purchase a gift card.",
+    donationInquiry: "Hi, I'd like to make a donation — how can I proceed?",
+    volunteerSignup: "Hi, I'd like to sign up as a volunteer.",
+    fundraiser: "Hi, I'd like to know more about your upcoming fundraiser.",
+    membershipJoin: "Hi, I'd like to join as a member. What's the process?",
+    eventSupport: "Hi, I'd like to support your upcoming community event.",
+    grantInquiry: "Hi, I'd like to inquire about grant opportunities.",
+    partnershipNGO: "Hi, we'd love to explore a partnership with your organization.",
+    donationReceipt: "Hi, could you send me a receipt for my recent donation?",
+    communityFeedback: "Hi, I'd like to share feedback about a recent community event.",
+    outreachInquiry: "Hi, I'd like to learn more about your outreach programs.",
+    checkingIn: "Hey! Just checking in — how are you doing?",
+    planMeetup: "Hey, want to plan a meetup sometime soon?",
+    familyUpdate: "Hi, just sharing a quick family update.",
+    birthdayWish: "Happy Birthday! Hope you have a wonderful day.",
+    congratulations: "Congratulations! So happy for you.",
+    getWellSoon: "Hope you're feeling better soon — get well!",
+    invitationPersonal: "Hi! You're invited — hope you can make it.",
+    thinkingOfYou: "Just thinking of you — hope all is well.",
+    catchUp: "Hey, it's been a while — let's catch up soon!",
+    travelPlans: "Hi, let's finalize our travel plans for the trip.",
+    techSupport: "Hi, I'm experiencing a technical issue — could you help?",
+    bugReport: "Hi, I'd like to report a bug I found.",
+    featureRequest: "Hi, I'd like to suggest a feature for your product.",
+    accountAccess: "Hi, I'm having trouble accessing my account.",
+    softwareDemo: "Hi, I'd like to schedule a product demo.",
+    integrationHelp: "Hi, I need help integrating your service with ours.",
+    apiQuestion: "Hi, I have a question about your API.",
+    upgradeInquiry: "Hi, I'd like to inquire about upgrading my plan.",
+    dataExport: "Hi, could you help me export my data?",
+    securityConcern: "Hi, I'd like to report a security concern.",
+    trialClass: "Hi, I'd like to book a trial class.",
+    membershipInquiry: "Hi, I'd like to know more about your membership plans.",
+    personalTraining: "Hi, I'm interested in personal training sessions.",
+    classSchedule: "Hi, could you share your class schedule?",
+    nutritionPlan: "Hi, I'd like more info about your nutrition plans.",
+    spaBooking: "Hi, I'd like to book a spa appointment.",
+    massageBooking: "Hi, I'd like to book a massage session.",
+    yogaClass: "Hi, I'd like to join a yoga class — what are the timings?",
+    wellnessCheck: "Hi, I'd like to schedule a wellness check-in.",
+    freezeMembership: "Hi, I'd like to pause/freeze my membership temporarily.",
+    plumbingRequest: "Hi, I need a plumber — could you help?",
+    electricalRequest: "Hi, I need an electrician for a home issue.",
+    cleaningService: "Hi, I'd like to book a cleaning service.",
+    pestControl: "Hi, I'd like to schedule pest control service.",
+    movingQuote: "Hi, could you send me a quote for moving services?",
+    landscaping: "Hi, I'd like to inquire about landscaping services.",
+    homeRepair: "Hi, I need help with a home repair — are you available?",
+    applianceRepair: "Hi, my appliance needs repair — could you assist?",
+    paintingQuote: "Hi, could you send me a quote for painting my home?",
+    hvacService: "Hi, I'd like to schedule HVAC servicing.",
+    photographyBooking: "Hi, I'd like to book a photography session.",
+    videographyBooking: "Hi, I'd like to inquire about videography services.",
+    weddingPackage: "Hi, could you share your wedding photography packages?",
+    eventPlanning: "Hi, I'd like help planning an upcoming event.",
+    djBooking: "Hi, I'd like to book a DJ for my event.",
+    venueInquiry: "Hi, I'd like to inquire about venue availability.",
+    decorInquiry: "Hi, I'd like to know more about your event decor services.",
+    printOrder: "Hi, I'd like to place an order for prints.",
+    albumRequest: "Hi, could you share an update on my photo album?",
+    eventTimeline: "Hi, could we finalize the timeline for the event?",
+    vetAppointment: "Hi, I'd like to book a vet appointment for my pet.",
+    groomingBooking: "Hi, I'd like to schedule a grooming appointment.",
+    petBoarding: "Hi, I'd like to inquire about pet boarding services.",
+    petSitting: "Hi, I'm looking for a pet sitter — are you available?",
+    petTraining: "Hi, I'd like to know more about your pet training programs.",
+    petAdoption: "Hi, I'm interested in adopting a pet — could you share details?",
+    petSupplies: "Hi, do you have this pet product in stock?",
+    vaccinationReminder: "Hi, just checking on my pet's vaccination schedule.",
+    petWalking: "Hi, I'm looking for a dog walker — are you available?",
+    petEmergency: "Hi, this is urgent — my pet needs immediate care.",
+    careerCounseling: "Hi, I'd like to book a career counseling session.",
+    resumeReview: "Hi, could you help review my resume?",
+    scholarshipInquiry: "Hi, I'd like to know more about scholarship opportunities.",
+    examPrep: "Hi, I'm looking for exam preparation classes.",
+    languageClass: "Hi, I'd like to enroll in a language class.",
+    onlineCourse: "Hi, I'd like more info about your online courses.",
+    certificationInquiry: "Hi, I'd like to know more about your certification programs.",
+    studyAbroad: "Hi, I'm interested in study abroad guidance.",
+    internshipInquiry: "Hi, I'd like to inquire about internship opportunities.",
+    mentorshipRequest: "Hi, I'm looking for a mentor — could you help?",
+    constructionQuote: "Hi, could you send me a quote for a construction project?",
+    renovationInquiry: "Hi, I'm planning a renovation — could you share your services?",
+    architectConsult: "Hi, I'd like to schedule a consultation with an architect.",
+    contractorQuote: "Hi, could you provide a quote for contracting work?",
+    permitHelp: "Hi, I need help with building permits.",
+    siteVisit: "Hi, could we schedule a site visit?",
+    materialsInquiry: "Hi, I'd like to inquire about available materials and pricing.",
+    projectTimeline: "Hi, could you share the timeline for my project?",
+    inspectionRequest: "Hi, I'd like to schedule a site inspection.",
+    safetyCompliance: "Hi, I have a question about safety compliance for the project.",
+    generalInquiry: "Hi, I have a general inquiry — could you help?",
+    pricingInfo: "Hi, could you share your pricing information?",
+    locationHours: "Hi, could you confirm your location and opening hours?",
+    newsletterSignup: "Hi, I'd like to sign up for your newsletter.",
+    socialMediaQuery: "Hi, I saw your post on social media and wanted to ask about it.",
+    customRequest: "Hi, I have a custom request — could you assist?",
+    urgentSupport: "Hi, I need urgent support with an ongoing issue.",
+    followUpGeneral: "Hi, just following up on our previous conversation.",
+    introductionMessage: "Hi, I'd like to introduce myself and my inquiry.",
+    closingRemarks: "Hi, thank you for your time — looking forward to hearing from you.",
+    softwareLaunch: "Hi! We've just launched our new software — would you like a quick walkthrough?",
+    subscriptionInvite: "Hi! You're invited to subscribe and unlock full access — want me to share the plans?"
   };
   document.getElementById('tpl').addEventListener('change', function(){
     msgInput.value = templates[this.value] || "";
