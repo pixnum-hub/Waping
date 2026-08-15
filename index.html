@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WAping · WhatsApp Link Generator</title>
+<meta name="description" content="Generate a WhatsApp click-to-chat link from any mobile number. No API key, no sign-up.">
+<meta name="theme-color" content="#0B1210">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WAping">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --radius:16px; --radius-sm:10px;
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  [data-theme="dark"]{
+    --bg:#0B1210; --surface:#121B18; --surface-2:#182420;
+    --text:#E8F0EC; --muted:#84988F; --accent:#25D366; --accent-2:#1DB955;
+    --border:rgba(255,255,255,.09); --danger:#FF6B6B; --ring:rgba(37,211,102,.35);
+  }
+  [data-theme="light"]{
+    --bg:#EAEDE8; --surface:#FFFFFF; --surface-2:#F2F4F0;
+    --text:#0F2620; --muted:#5B6D65; --accent:#0F8C6E; --accent-2:#0B6E58;
+    --border:rgba(15,38,32,.12); --danger:#C4362B; --ring:rgba(15,140,110,.25);
+  }
+  [data-theme="black"]{
+    --bg:#000000; --surface:#000000; --surface-2:#0A0D0C;
+    --text:#EAF2EE; --muted:#6E827A; --accent:#25D366; --accent-2:#1DB955;
+    --border:rgba(255,255,255,.14); --danger:#FF6B6B; --ring:rgba(37,211,102,.35);
+  }
+  [data-theme="hc"]{
+    --bg:#000000; --surface:#000000; --surface-2:#000000;
+    --text:#FFFFFF; --muted:#FFFF00; --accent:#FFFF00; --accent-2:#00FFFF;
+    --border:#FFFFFF; --danger:#FF3B3B; --ring:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--font-body);
+    min-height:100dvh; display:flex; flex-direction:column;
+    transition:background .25s ease,color .25s ease;
+  }
+  .wrap{width:100%; max-width:480px; margin:0 auto; padding:20px 18px 12px; flex:1; display:flex; flex-direction:column;}
+  header{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:22px;}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .dot{width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--ring); animation:pulse 2.2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.45;}}
+  .brand h1{font-family:var(--font-display); font-size:16px; margin:0; letter-spacing:.2px;}
+  .brand span{display:block; font-family:var(--font-mono); font-size:10px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; margin-top:2px;}
+  .themes{display:flex; gap:4px; background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:4px;}
+  .themes button{width:28px; height:28px; border-radius:50%; border:none; cursor:pointer; background:transparent; color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:13px; transition:background .2s,color .2s;}
+  .themes button[aria-pressed="true"]{background:var(--accent); color:var(--bg);}
+  [data-theme="hc"] .themes button[aria-pressed="true"]{color:#000;}
+
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px 18px; margin-bottom:16px;}
+  .eyebrow{font-family:var(--font-mono); font-size:10.5px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin:0 0 6px;}
+  label{display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.6px;}
+  .field{margin-bottom:16px;}
+  .phone-row{display:flex; gap:8px;}
+  select,input,textarea{
+    width:100%; background:var(--surface-2); border:1px solid var(--border); color:var(--text);
+    border-radius:var(--radius-sm); padding:12px 12px; font-size:15px; font-family:var(--font-mono);
+    outline:none; transition:border-color .2s, box-shadow .2s;
+  }
+  input#cc{width:118px; flex-shrink:0; font-family:var(--font-body); font-size:13.5px;}
+  select{font-family:var(--font-body); font-size:14px;}
+  textarea{font-family:var(--font-body); resize:vertical; min-height:64px;}
+  select:focus,input:focus,textarea:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--ring);}
+  .hint{font-size:11px; color:var(--muted); margin-top:6px;}
+  .hint.err{color:var(--danger);}
+
+  .readout{
+    font-family:var(--font-mono); background:var(--surface-2); border:1px dashed var(--border);
+    border-radius:var(--radius-sm); padding:12px 14px; font-size:13px; letter-spacing:.3px;
+    color:var(--accent); display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:14px;
+    min-height:44px; word-break:break-all;
+  }
+  .readout .st{width:7px; height:7px; border-radius:50%; background:var(--muted); flex-shrink:0; margin-top:5px;}
+  .readout.ready .st{background:var(--accent); box-shadow:0 0 0 3px var(--ring);}
+
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;}
+  .chip{
+    font-family:var(--font-mono); font-size:11px; padding:6px 8px 6px 10px; border-radius:999px;
+    background:var(--surface-2); border:1px solid var(--border); color:var(--muted); cursor:pointer;
+    display:flex; align-items:center; gap:6px;
+  }
+  .chip.pinned{border-color:var(--accent); color:var(--accent);}
+  .chip .pin{cursor:pointer; font-size:12px;}
+
+  button.primary{
+    width:100%; background:var(--accent); color:var(--bg); border:none; border-radius:var(--radius-sm);
+    padding:14px; font-family:var(--font-display); font-weight:700; font-size:15px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:8px; transition:transform .15s, opacity .2s;
+  }
+  [data-theme="hc"] button.primary{color:#000;}
+  button.primary:active{transform:scale(.98);}
+  button.primary:disabled{opacity:.4; cursor:not-allowed;}
+
+  .result{display:none;} .result.show{display:block;}
+  .ticket{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; position:relative; overflow:hidden;}
+  .ticket::before{content:""; position:absolute; left:0; right:0; top:0; height:3px; background:repeating-linear-gradient(90deg,var(--accent) 0 8px,transparent 8px 16px);}
+  .link-box{font-family:var(--font-mono); font-size:12.5px; color:var(--text); background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px; word-break:break-all; margin:12px 0 14px;}
+  .actions{display:flex; gap:8px; flex-wrap:wrap;}
+  .actions button{flex:1; min-width:88px; border-radius:var(--radius-sm); padding:11px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:var(--font-body); border:1px solid var(--border); background:var(--surface-2); color:var(--text);}
+  .actions .go{background:var(--accent); color:var(--bg); border:none;}
+  [data-theme="hc"] .actions .go{color:#000;}
+  .actions .star.saved{color:var(--accent); border-color:var(--accent);}
+
+  .qr{display:flex; justify-content:center; margin:16px 0 4px;}
+  .qr img{border-radius:var(--radius-sm); border:1px solid var(--border); background:#fff; padding:6px;}
+
+  .embed{margin-top:16px;}
+  .embed textarea{font-size:11px; min-height:56px;}
+  .embed .actions{margin-top:8px;}
+
+  details.bulk{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; margin-bottom:16px;}
+  details.bulk summary{cursor:pointer; font-family:var(--font-display); font-weight:700; font-size:14px; list-style:none;}
+  details.bulk summary::-webkit-details-marker{display:none;}
+  .bulk-list{margin-top:12px; display:flex; flex-direction:column; gap:8px; max-height:220px; overflow:auto;}
+  .bulk-item{display:flex; align-items:center; gap:8px; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:8px 10px; font-family:var(--font-mono); font-size:11px;}
+  .bulk-item a{color:var(--accent); text-decoration:none; flex:1; word-break:break-all;}
+  .bulk-actions{display:flex; gap:8px; margin-top:10px;}
+  .bulk-actions button{flex:1; border-radius:var(--radius-sm); padding:10px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:var(--font-body); border:1px solid var(--border); background:var(--surface-2); color:var(--text);}
+
+  footer{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:6px; padding:22px 16px 26px; margin-top:auto;}
+  .foot-row{display:flex; align-items:center; justify-content:center; gap:7px;}
+  footer .fdot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+  footer p{margin:0; font-size:11.5px; color:var(--muted); font-family:var(--font-mono); letter-spacing:.3px;}
+  footer strong{color:var(--text); font-weight:600;}
+
+  @media (min-width:600px){ .wrap{padding-top:36px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <span class="dot" aria-hidden="true"></span>
+      <div><h1>WAping</h1><span>WhatsApp link builder</span></div>
+    </div>
+    <div class="themes" role="group" aria-label="Theme selector">
+      <button type="button" data-theme-btn="dark" aria-pressed="true" title="Dark">◐</button>
+      <button type="button" data-theme-btn="light" aria-pressed="false" title="Light">☀</button>
+      <button type="button" data-theme-btn="black" aria-pressed="false" title="OLED True Black">●</button>
+      <button type="button" data-theme-btn="hc" aria-pressed="false" title="High Contrast">A</button>
+    </div>
+  </header>
+
+  <div class="card">
+    <div class="field">
+      <label for="phone">Recipient's mobile number</label>
+      <div class="phone-row">
+        <input id="cc" list="ccList" placeholder="Search country/code" autocomplete="off">
+        <datalist id="ccList"></datalist>
+        <input id="phone" type="tel" inputmode="numeric" placeholder="98765 43210" autocomplete="tel">
+      </div>
+      <p class="hint" id="phoneHint">Include the number without the leading 0.</p>
+    </div>
+
+    <div class="field">
+      <label for="tpl">Message template</label>
+      <select id="tpl">
+        <option value="">Custom / blank</option>
+        <option value="support">Support enquiry</option>
+        <option value="sales">Sales enquiry</option>
+        <option value="booking">Booking request</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="msg">Pre‑filled message (optional)</label>
+      <textarea id="msg" placeholder="Hi! I found your number on…" maxlength="500"></textarea>
+    </div>
+
+    <div class="readout" id="readout">
+      <span id="readoutText">waiting for a valid number…</span>
+      <span class="st" aria-hidden="true"></span>
+    </div>
+
+    <div class="chips" id="chips" style="display:none;"></div>
+
+    <button class="primary" id="genBtn" disabled>Generate chat link</button>
+  </div>
+
+  <div class="result" id="result">
+    <div class="ticket">
+      <p class="eyebrow">Your link is ready</p>
+      <div class="link-box" id="linkBox"></div>
+      <div class="actions">
+        <button id="copyBtn" type="button">Copy link</button>
+        <button class="go" id="openBtn" type="button">Open in WhatsApp</button>
+        <button id="shareBtn" type="button" style="display:none;">Share</button>
+        <button id="starBtn" class="star" type="button">☆ Save</button>
+      </div>
+
+      <div class="qr"><img id="qrImg" width="160" height="160" alt="QR code for this chat link"></div>
+
+      <div class="embed">
+        <label for="btnLabel">Embed button text</label>
+        <input id="btnLabel" value="Chat on WhatsApp" maxlength="40">
+        <textarea id="embedCode" readonly rows="3"></textarea>
+        <div class="actions"><button id="copyEmbedBtn" type="button">Copy embed code</button></div>
+      </div>
+    </div>
+  </div>
+
+  <details class="bulk">
+    <summary>⚙ Bulk generate (multiple numbers)</summary>
+    <div class="field" style="margin-top:12px;">
+      <label for="bulkInput">One number per line — uses the country code above unless a line starts with +</label>
+      <textarea id="bulkInput" rows="4" placeholder="9876543210&#10;+14155552671&#10;9123456789"></textarea>
+    </div>
+    <button class="primary" id="bulkGenBtn" type="button">Generate all links</button>
+    <div class="bulk-list" id="bulkList"></div>
+    <div class="bulk-actions" id="bulkActions" style="display:none;">
+      <button id="bulkCopyBtn" type="button">Copy all</button>
+      <button id="bulkDownloadBtn" type="button">Download .txt</button>
+    </div>
+  </details>
+
+  <footer>
+    <div class="foot-row">
+      <span class="fdot" aria-hidden="true"></span>
+      <p>© <span id="year"></span> <strong>Manik Roy</strong>. All Rights Reserved.</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- Theme ----------
+  var root = document.documentElement;
+  var themeBtns = document.querySelectorAll('[data-theme-btn]');
+  function applyTheme(t){
+    root.setAttribute('data-theme', t);
+    themeBtns.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-theme-btn') === t ? 'true' : 'false'); });
+    try{ localStorage.setItem('wa-c2c-theme', t); }catch(e){}
+  }
+  var savedTheme = null;
+  try{ savedTheme = localStorage.getItem('wa-c2c-theme'); }catch(e){}
+  if(!savedTheme){ savedTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark'; }
+  applyTheme(savedTheme);
+  themeBtns.forEach(function(b){ b.addEventListener('click', function(){ applyTheme(b.getAttribute('data-theme-btn')); }); });
+
+  // ---------- Countries (feature 1: searchable via datalist, feature 16: auto-detect) ----------
+  var countries = [
+    ["+1","US/CA"],["+44","UK"],["+91","IN"],["+61","AU"],["+64","NZ"],
+    ["+49","DE"],["+33","FR"],["+34","ES"],["+39","IT"],["+31","NL"],
+    ["+351","PT"],["+7","RU"],["+81","JP"],["+82","KR"],["+86","CN"],
+    ["+65","SG"],["+60","MY"],["+66","TH"],["+62","ID"],["+63","PH"],
+    ["+92","PK"],["+880","BD"],["+94","LK"],["+977","NP"],["+971","AE"],
+    ["+966","SA"],["+234","NG"],["+27","ZA"],["+20","EG"],["+55","BR"],
+    ["+52","MX"],["+90","TR"],["+48","PL"],["+46","SE"],["+47","NO"]
+  ];
+  var ccInput = document.getElementById('cc');
+  var ccList = document.getElementById('ccList');
+  countries.forEach(function(c){
+    var opt = document.createElement('option');
+    opt.value = c[0] + " " + c[1];
+    ccList.appendChild(opt);
+  });
+  ccInput.value = "+1 US/CA";
+  try{
+    var region = (navigator.language || "").split('-')[1];
+    if(region){
+      var m = countries.find(function(c){ return c[1].split('/').indexOf(region.toUpperCase()) !== -1; });
+      if(m) ccInput.value = m[0] + " " + m[1];
+    }
+  }catch(e){}
+
+  function parseCC(v){ var m = (v||"").match(/^\+\d{1,4}/); return m ? m[0] : "+1"; }
+
+  // ---------- Message templates (feature 13) ----------
+  var templates = {
+    support: "Hi, I need help with a recent order or query.",
+    sales: "Hi! I'm interested in your products or services. Could you share more details?",
+    booking: "Hi, I'd like to book an appointment. What slots are available?"
+  };
+  document.getElementById('tpl').addEventListener('change', function(){
+    msgInput.value = templates[this.value] || "";
+    validate();
+  });
+
+  // ---------- Core elements ----------
+  var phoneInput = document.getElementById('phone');
+  var msgInput = document.getElementById('msg');
+  var readout = document.getElementById('readout');
+  var readoutText = document.getElementById('readoutText');
+  var genBtn = document.getElementById('genBtn');
+  var result = document.getElementById('result');
+  var linkBox = document.getElementById('linkBox');
+  var copyBtn = document.getElementById('copyBtn');
+  var openBtn = document.getElementById('openBtn');
+  var shareBtn = document.getElementById('shareBtn');
+  var starBtn = document.getElementById('starBtn');
+  var qrImg = document.getElementById('qrImg');
+  var btnLabel = document.getElementById('btnLabel');
+  var embedCode = document.getElementById('embedCode');
+  var copyEmbedBtn = document.getElementById('copyEmbedBtn');
+  var phoneHint = document.getElementById('phoneHint');
+  var chipsBox = document.getElementById('chips');
+  var currentLink = "", currentFull = "";
+
+  function digitsOnly(v){ return (v || "").replace(/\D/g,""); }
+  function fullNumber(){ return digitsOnly(parseCC(ccInput.value)) + digitsOnly(phoneInput.value).replace(/^0+/, ""); }
+  function buildLink(fullNum, msg){
+    var base = "https://wa.me/" + fullNum;
+    return msg ? base + "?text=" + encodeURIComponent(msg) : base;
+  }
+
+  function validate(){
+    var num = digitsOnly(phoneInput.value);
+    var valid = num.length >= 7 && num.length <= 14;
+    if(valid){
+      readout.classList.add('ready');
+      readoutText.textContent = buildLink(fullNumber(), msgInput.value.trim()); // feature 4: live preview
+      phoneHint.classList.remove('err'); phoneHint.textContent = "Include the number without the leading 0.";
+    } else {
+      readout.classList.remove('ready');
+      readoutText.textContent = num.length === 0 ? "waiting for a valid number…" : "number looks incomplete…";
+      phoneHint.classList.toggle('err', num.length > 0);
+      phoneHint.textContent = num.length > 0 ? "Enter 7–14 digits, no spaces needed." : "Include the number without the leading 0.";
+    }
+    genBtn.disabled = !valid;
+    return valid;
+  }
+  [phoneInput, ccInput].forEach(function(el){ el.addEventListener('input', function(){ phoneInput.value = phoneInput.value.replace(/[^\d\s-]/g,""); validate(); }); });
+  msgInput.addEventListener('input', validate);
+  validate();
+
+  // ---------- History: recent (auto) + saved/pinned (features 11 & 14) ----------
+  function loadHist(){ try{ return JSON.parse(localStorage.getItem('wa-c2c-hist') || "[]"); }catch(e){ return []; } }
+  function saveHist(h){ try{ localStorage.setItem('wa-c2c-hist', JSON.stringify(h.slice(0,10))); }catch(e){} }
+  function renderChips(){
+    var h = loadHist();
+    chipsBox.innerHTML = "";
+    chipsBox.style.display = h.length ? "flex" : "none";
+    h.forEach(function(item){
+      var chip = document.createElement('span');
+      chip.className = 'chip' + (item.pinned ? ' pinned' : '');
+      chip.innerHTML = '<span class="lbl">' + item.cc + ' ' + item.num + '</span><span class="pin">' + (item.pinned ? '★' : '☆') + '</span>';
+      chip.querySelector('.lbl').addEventListener('click', function(){
+        ccInput.value = item.cc; phoneInput.value = item.num; msgInput.value = item.msg || ""; validate();
+      });
+      chip.querySelector('.pin').addEventListener('click', function(ev){
+        ev.stopPropagation();
+        item.pinned = !item.pinned; saveHist(h); renderChips();
+      });
+      chipsBox.appendChild(chip);
+    });
+  }
+  function pushHist(cc, num, msg){
+    var h = loadHist();
+    var existing = h.find(function(i){ return i.cc === cc && i.num === num; });
+    if(existing){ existing.msg = msg; }
+    else{ h.unshift({cc:cc, num:num, msg:msg, pinned:false}); }
+    var pinned = h.filter(function(i){ return i.pinned; });
+    var recent = h.filter(function(i){ return !i.pinned; }).slice(0,6);
+    saveHist(pinned.concat(recent));
+    renderChips();
+  }
+  renderChips();
+
+  // ---------- Generate ----------
+  function refreshResult(){
+    currentFull = fullNumber();
+    currentLink = buildLink(currentFull, msgInput.value.trim());
+    linkBox.textContent = currentLink;
+    qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=" + encodeURIComponent(currentLink);
+    updateEmbed();
+    var h = loadHist();
+    var saved = h.find(function(i){ return i.cc === parseCC(ccInput.value) && i.num === digitsOnly(phoneInput.value); });
+    starBtn.classList.toggle('saved', !!(saved && saved.pinned));
+    starBtn.textContent = (saved && saved.pinned) ? "★ Saved" : "☆ Save";
+  }
+  genBtn.addEventListener('click', function(){
+    if(!validate()) return;
+    refreshResult();
+    pushHist(parseCC(ccInput.value), digitsOnly(phoneInput.value), msgInput.value.trim());
+    result.classList.add('show');
+    result.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+  [phoneInput, ccInput, msgInput].forEach(function(el){
+    el.addEventListener('input', function(){ if(result.classList.contains('show') && validate()) refreshResult(); });
+  });
+
+  // ---------- Copy / open / share / save (features 5,6,9,11) ----------
+  function flash(btn, msg){ var old = btn.textContent; btn.textContent = msg; setTimeout(function(){ btn.textContent = old; }, 1400); }
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+  function copyText(text, btn, label){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ flash(btn, label); }).catch(function(){ fallbackCopy(text); flash(btn, label); });
+    } else { fallbackCopy(text); flash(btn, label); }
+  }
+  copyBtn.addEventListener('click', function(){ copyText(currentLink, copyBtn, "Copied!"); });
+  openBtn.addEventListener('click', function(){ if(currentLink) window.open(currentLink, '_blank', 'noopener'); });
+  if(navigator.share){
+    shareBtn.style.display = "";
+    shareBtn.addEventListener('click', function(){ navigator.share({ url: currentLink, title: "WhatsApp chat link" }).catch(function(){}); });
+  }
+  starBtn.addEventListener('click', function(){
+    var cc = parseCC(ccInput.value), num = digitsOnly(phoneInput.value);
+    var h = loadHist();
+    var item = h.find(function(i){ return i.cc === cc && i.num === num; });
+    if(!item){ item = {cc:cc, num:num, msg:msgInput.value.trim(), pinned:false}; h.unshift(item); }
+    item.pinned = !item.pinned;
+    saveHist(h); renderChips(); refreshResult();
+  });
+
+  // ---------- Embed snippet (feature 15) ----------
+  function updateEmbed(){
+    var label = (btnLabel.value || "Chat on WhatsApp").trim();
+    embedCode.value = '<a href="' + currentLink + '" target="_blank" rel="noopener" style="display:inline-block;padding:12px 20px;background:#25D366;color:#fff;border-radius:8px;font-family:sans-serif;text-decoration:none;">' + label + '</a>';
+  }
+  btnLabel.addEventListener('input', updateEmbed);
+  copyEmbedBtn.addEventListener('click', function(){ copyText(embedCode.value, copyEmbedBtn, "Copied!"); });
+
+  // ---------- Bulk generate (feature 12) ----------
+  var bulkInput = document.getElementById('bulkInput');
+  var bulkGenBtn = document.getElementById('bulkGenBtn');
+  var bulkList = document.getElementById('bulkList');
+  var bulkActions = document.getElementById('bulkActions');
+  var bulkCopyBtn = document.getElementById('bulkCopyBtn');
+  var bulkDownloadBtn = document.getElementById('bulkDownloadBtn');
+  var bulkLinks = [];
+  bulkGenBtn.addEventListener('click', function(){
+    var lines = bulkInput.value.split(/\n+/).map(function(l){ return l.trim(); }).filter(Boolean);
+    var cc = digitsOnly(parseCC(ccInput.value));
+    var msg = msgInput.value.trim();
+    bulkLinks = lines.map(function(line){
+      var full = line.charAt(0) === '+' ? digitsOnly(line) : cc + digitsOnly(line).replace(/^0+/, "");
+      return buildLink(full, msg);
+    });
+    bulkList.innerHTML = "";
+    bulkLinks.forEach(function(link){
+      var row = document.createElement('div');
+      row.className = 'bulk-item';
+      row.innerHTML = '<a href="' + link + '" target="_blank" rel="noopener">' + link + '</a><button type="button">Copy</button>';
+      row.querySelector('button').addEventListener('click', function(){ copyText(link, this, "✓"); });
+      bulkList.appendChild(row);
+    });
+    bulkActions.style.display = bulkLinks.length ? "flex" : "none";
+  });
+  bulkCopyBtn.addEventListener('click', function(){ copyText(bulkLinks.join("\n"), bulkCopyBtn, "Copied!"); });
+  bulkDownloadBtn.addEventListener('click', function(){
+    var blob = new Blob([bulkLinks.join("\n")], {type:"text/plain"});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = "waping-links.txt";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  });
+
+  // ---------- PWA: service worker registration (required for installability) ----------
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>
